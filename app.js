@@ -4,13 +4,15 @@ const express = require('express')
 const app = express()
 const port = 3000
 let pokemons = require(`./mock-pokemon`)
-  
-app.get('/', (req, res) => res.send('Hello, Ezaxezcxxpress!'))
+const { success } = require(`./helper.js`)
+
+app.get('/', (req, res) => res.send('<h1>Hello, Ezaxezcxxpress!</h1>'))
 
 app.get('/api/pokemons/:id', (req,res) => {
     const id = parseInt(req.params.id)
     const pokemon = pokemons.find(pokemons => pokemons.id === id)
-    res.send(`Vous avez demandé le pokémon nommé ${pokemon.name}. et c'est ${pokemon.picture}`)
+    const message = `Un pokémon a bien été trouvé`
+    res.json(success(message, pokemon))
 })
   
 app.get('/api/pokemons', (req,res) => {
